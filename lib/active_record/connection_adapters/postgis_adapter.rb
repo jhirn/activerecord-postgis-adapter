@@ -30,6 +30,29 @@ module ActiveRecord
     class PostGISAdapter < PostgreSQLAdapter
       include PostGIS::SchemaStatements
 
+      PGOID = PostgreSQLAdapter::OID
+
+      #Register postgresql types with postgis adapter.
+      #Copied from https://github.com/rails/rails/blob/3f1695bb9c008b7cb1840e09e640f3ec0c59a564/activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb#L813
+      ActiveRecord::Type.add_modifier({ array: true }, PGOID::Array, adapter: :postgis)
+      ActiveRecord::Type.add_modifier({ range: true }, PGOID::Range, adapter: :postgis)
+      ActiveRecord::Type.register(:bit, PGOID::Bit, adapter: :postgis)
+      ActiveRecord::Type.register(:bit_varying, PGOID::BitVarying, adapter: :postgis)
+      ActiveRecord::Type.register(:binary, PGOID::Bytea, adapter: :postgis)
+      ActiveRecord::Type.register(:cidr, PGOID::Cidr, adapter: :postgis)
+      ActiveRecord::Type.register(:datetime, PGOID::DateTime, adapter: :postgis)
+      ActiveRecord::Type.register(:decimal, PGOID::Decimal, adapter: :postgis)
+      ActiveRecord::Type.register(:enum, PGOID::Enum, adapter: :postgis)
+      ActiveRecord::Type.register(:hstore, PGOID::Hstore, adapter: :postgis)
+      ActiveRecord::Type.register(:inet, PGOID::Inet, adapter: :postgis)
+      ActiveRecord::Type.register(:jsonb, PGOID::Jsonb, adapter: :postgis)
+      ActiveRecord::Type.register(:money, PGOID::Money, adapter: :postgis)
+      ActiveRecord::Type.register(:point, PGOID::Point, adapter: :postgis)
+      ActiveRecord::Type.register(:legacy_point, PGOID::LegacyPoint, adapter: :postgis)
+      ActiveRecord::Type.register(:uuid, PGOID::Uuid, adapter: :postgis)
+      ActiveRecord::Type.register(:vector, PGOID::Vector, adapter: :postgis)
+      ActiveRecord::Type.register(:xml, PGOID::Xml, adapter: :postgis)
+      
       SPATIAL_COLUMN_OPTIONS =
         {
           geography:           { geographic: true },
