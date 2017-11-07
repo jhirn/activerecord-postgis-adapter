@@ -48,7 +48,6 @@ module ActiveRecord
       ActiveRecord::Type.register(:jsonb, PGOID::Jsonb, adapter: :postgis)
       ActiveRecord::Type.register(:money, PGOID::Money, adapter: :postgis)
       ActiveRecord::Type.register(:point, PGOID::Point, adapter: :postgis)
-      ActiveRecord::Type.register(:legacy_point, PGOID::LegacyPoint, adapter: :postgis)
       ActiveRecord::Type.register(:uuid, PGOID::Uuid, adapter: :postgis)
       ActiveRecord::Type.register(:vector, PGOID::Vector, adapter: :postgis)
       ActiveRecord::Type.register(:xml, PGOID::Xml, adapter: :postgis)
